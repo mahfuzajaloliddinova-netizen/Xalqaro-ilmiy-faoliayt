@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xalqaro Ilmiy Faoliyat va amaliyotlar Portali</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #0d9488;
+            --accent: #f59e0b;
+            --bg-light: #f8fafc;
+            --text-dark: #1e293b;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), #1e40af);
+            color: white;
+            padding: 2.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.25rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .tab-btn {
+            background-color: white;
+            border: 2px solid var(--border-color);
+            color: var(--text-dark);
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .tab-btn:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .section-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            font-size: 1.35rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .card li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .card li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(to right, #e0f2fe, #f0fdf4);
+            border-left: 5px solid var(--secondary);
+            padding: 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 2rem;
+        }
+
+        .highlight-box h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #0f172a;
+            color: #94a3b8;
+            margin-top: 4rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.75rem; }
+            .tab-btn { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Xalqaro Ilmiy Faoliyat Portali</h1>
+        <p>Scopus, Web of Science, xalqaro grantlar va ilmiy stajirovkalar bo'yicha metodik qo'llanma va yo'riqnoma</p>
+    </header>
+
+    <div class="container">
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab(event, 'scopus')">Scopus & Web of Science</button>
+            <button class="tab-btn" onclick="switchTab(event, 'grants')">Xalqaro Grantlar</button>
+            <button class="tab-btn" onclick="switchTab(event, 'conferences')">Konferensiyalar va Stajirovkalar</button>
+            <button class="tab-btn" onclick="switchTab(event, 'strategy')">Ilmiy Strategiya</button>
+        </div>
+
+        <!-- TAB 1: Scopus & Web of Science -->
+        <div id="scopus" class="section-content active">
+            <div class="highlight-box">
+                <h4>Scopus va Web of Science bazalarida chop etish strategiyasi</h4>
+                <p>Nufuzli xalqaro jurnallarda maqola e'lon qilish puxta ilmiy yondashuv, akademik ingliz tili va xalqaro standartlarga qat'iy rioya qilishni talab etadi.</p>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Maqola Tuzilmasi (IMRAD)</h3>
+                    <ul>
+                        <li><strong>Introduction (Kirish):</strong> Muammoning dolzarbligi va adabiyotlar tahlili (Literature Review).</li>
+                        <li><strong>Methodology (Metodologiya):</strong> Qo'llanilgan ilmiy va empirik usullar, yondashuvlar aniqligi.</li>
+                        <li><strong>Results (Natijalar):</strong> Tadqiqot davomida olingan yangi ilmiy natijalar va tahlillar.</li>
+                        <li><strong>Discussion (Muhokama):</strong> Olingan natijalarning xalqaro ilmiy adabiyotlar bilan qiyosiy tahlili.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Jurnal Tanlash va Metrikalar</h3>
+                    <ul>
+                        <li><strong>Quartile (Q1–Q4):</strong> Jurnallarning ilm-fan yo'nalishidagi nufuz darajasi va impakt-faktori.</li>
+                        <li><strong>CiteScore va SNIP:</strong> Scopus bazasidagi asosiy iqtiboslik ko'rsatkichlari.</li>
+                        <li><strong>Predator Jurnallardan Himoya:</strong> Soxta va tekin o'lja jurnallarni aniqlash hamda ulardan qochish yo'llari.</li>
+                        <li><strong>Peer Review:</strong> Taqriz jarayonida kelib tushadigan tanqidlarga ilmiy va asosli javob qaytarish.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Akademik Yozuv va Tarjima</h3>
+                    <ul>
+                        <li>Akademik ingliz tilidagi (Academic English) qoliplar va uslubiy talablar.</li>
+                        <li>Plagiatni istisno qilish (Turnitin va iThenticate dasturlari orqali oldindan tekshirish).</li>
+                        <li>Annotatsiya (Abstract) va kalit so'zlarni xalqaro SEO talablariga moslashtirish.</li>
+                        <li>Bibliografik menejerlardan (Mendeley, Zotero) foydalanish tartibi.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: Xalqaro Grantlar -->
+        <div id="grants" class="section-content">
+            <div class="highlight-box">
+                <h4>Xalqaro Ilmiy Grantlarni Qo'lga Kiritish</h4>
+                <p>Fundamental va amaliy tadqiqotlarni moliyalashtirish uchun xalqaro fondlar e'lon qiladigan tanlovlarda ishtirok etish bosqichlari.</p>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Mashhur Xalqaro Fondlar</h3>
+                    <ul>
+                        <li><strong>Horizon Europe / Marie Skłodowska-Curie Actions:</strong> Yevropa Ittifoqining yirik tadqiqot dasturlari.</li>
+                        <li><strong>DAAD (Germaniya):</strong> Ilmiy tadqiqot va malaka oshirish grantlari.</li>
+                        <li><strong>TÜBİTAK (Turkiya):</strong> Xalqaro tadqiqotchilar uchun ilmiy grant dasturlari.</li>
+                        <li><strong>Fullbright Program (AQSh):</strong> O'qituvchi va tadqiqotchilar uchun ilmiy stajirovkalar.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Grant Loyihasini Tayyorlash</h3>
+                    <ul>
+                        <li><strong>Executive Summary:</strong> Loyihaning qisqacha mazmuni va ijtimoiy-ilmiy ahamiyati.</li>
+                        <li><strong>Work Plan & Timeline:</strong> Tadqiqot bosqichlari, muddatlari va kutilayotgan natijalar grafigi.</li>
+                        <li><strong>Budgeting:</strong> Xarajatlar smetasini shaffof va asoslangan holda shakllantirish.</li>
+                        <li><strong>Consortium Building:</strong> Xalqaro hamkor universitetlar va olimlarni jalb etish.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: Konferensiyalar va Stajirovkalar -->
+        <div id="conferences" class="section-content">
+            <div class="highlight-box">
+                <h4>Xalqaro Konferensiyalar va Ilmiy Stajirovkalar</h4>
+                <p>Global akademik hamjamiyatga integratsiyalashish, tajriba almashish va ilmiy aloqalarni kengaytirish yo'llari.</p>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Xalqaro Konferensiyalar</h3>
+                    <ul>
+                        <li>Web of Science va Scopus bazalarida indekslanadigan nufuzli simpoziumlarni tanlash.</li>
+                        <li>Tezis va maqolalarni xalqaro talablar asosida tayyorlab jo'natish.</li>
+                        <li>Taqdimot (Presentation) dizayni va ingliz tilida erkin ma'ruza qilish ko'nikmalari.</li>
+                        <li>Ilmiy networking va xalqaro hammualliflik aloqalarini o'rnatish.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Ilmiy Stajirovkalar</h3>
+                    <ul>
+                        <li>Xorijiy yetakchi universitetlar va ilmiy markazlar bazasida malaka oshirish.</li>
+                        <li>Taklifnoma (Invitation Letter) olish uchun xorijiy professorlar bilan ilmiy yozishmalar olib borish.</li>
+                        <li>Stajirovkadan kutiladigan ilmiy natijalar va monografiya/maqola rejasini tuzish.</li>
+                        <li>Olingan natijalarni o'quv jarayoni va ilmiy laboratoriyalarga tatbiq etish.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: Ilmiy Strategiya -->
+        <div id="strategy" class="section-content">
+            <div class="highlight-box">
+                <h4>Akademik Profil va Metrikalar</h4>
+                <p>Olimning xalqaro miqyosdagi shaxsiy ilmiy reytingini oshirish va raqamli identifikatsiyasini to'g'ri yuritish.</p>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Ilmiy Identifikatorlar</h3>
+                    <ul>
+                        <li><strong>ORCID iD:</strong> Tadqiqotchining yagona raqamli xalqaro pasporti.</li>
+                        <li><strong>Scopus Author ID:</strong> Muallifning Scopusdagi barcha nashrlari va iqtiboslarini birlashtiruvchi profil.</li>
+                        <li><strong>Web of Science ResearcherID (Publons):</strong> Nashrlar va taqrizchilik faoliyati tarixi.</li>
+                        <li><strong>Google Scholar:</strong> Iqtiboslik ko'rsatkichlari (h-index, i10-index) dinamikasini kuzatish.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Tadqiqot Samaradorligi</h3>
+                    <ul>
+                        <li>H-indeksni oshirish bo'yicha uzoq muddatli shaxsiy reja tuzish.</li>
+                        <li>Ilmiy maqolalarga iqtiboslikni (citations) oshirish strategiyalari.</li>
+                        <li>Fanlararo (interdisciplinary) yondashuvlar asosida yangi mavzularni ochish.</li>
+                        <li>Ilmiy maktablar va tadqiqot guruhlari bilan hamkorlikni kuchaytirish.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Xalqaro Ilmiy Faoliyat va Tadqiqotlar Portali. Barcha huquqlar himoyalangan.</p>
+    </footer>
+
+    <script>
+        function switchTab(evt, tabId) {
+            const contents = document.getElementsByClassName("section-content");
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].classList.remove("active");
+            }
+
+            const buttons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove("active");
+            }
+
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+
+</body>
+</html>
